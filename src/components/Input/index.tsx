@@ -3,13 +3,19 @@ import {
   useRef,
   useState,
   useCallback,
+  ElementType,
 } from 'react';
 
 import { useField } from '@unform/core';
 
 import { Container } from './styles';
 
-const Input = ({ name, icon: Icon, ...rest }) => {
+interface InputAttrs{
+  name: string;
+  icon: ElementType;
+}
+
+export default function Input ({ name, icon: Icon, ...rest }: InputAttrs){
   const inputRef = useRef(null);
 
   const [isFocused, setIsFocused] = useState(false);
@@ -24,7 +30,7 @@ const Input = ({ name, icon: Icon, ...rest }) => {
   const handleInputBlur = useCallback(() => {
     setIsFocused(false);
 
-    setIsFilled(!!inputRef.current?.value);
+    setIsFilled(!!inputRef.current)
   }, []);
 
   useEffect(() => {
@@ -49,5 +55,3 @@ const Input = ({ name, icon: Icon, ...rest }) => {
     </Container>
   );
 };
-
-export default Input;
